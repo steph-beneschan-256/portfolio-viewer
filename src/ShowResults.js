@@ -314,7 +314,6 @@ export default function ShowResults ({ portfolio=samplePortfolio }) {
         <>  
           {(chartLoaded && chartOptions && chartSeries) && 
             <>
-            {/* note: still need to figure out proper way to do styles in next.js */}
             <div className="resultsChartContainer">
               <Chart
                 type="area"

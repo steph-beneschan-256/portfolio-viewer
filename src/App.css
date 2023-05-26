@@ -1,3 +1,22 @@
+.portfolio-input {
+  display: inline-block;
+  width:50%;
+}
+.allocation-chart {
+  display: inline-block;
+  width: 50%;
+}
+
+@media only screen and (max-width: 700px) {
+  .portfolio-input {
+    width: 100%;
+  }
+  .allocation-chart {
+    width: 100%;
+  }
+  
+}
+
 .App {
   text-align: center;
 }
@@ -180,11 +199,15 @@ button:hover {
   width: 100%;
 }
 
-.inputChartContainer {
+/* .inputChartContainer {
   width: calc(max(min(50vw, 50vh), min(80%, 400px)));
   min-width: calc();
   margin-left: calc((100vw - (max(min(50vw, 50vh), min(80%, 400px))))/2);
   margin-right: calc((100vw - (max(min(50vw, 50vh), min(80%, 400px))))/2);
+} */
+
+.inputChartContainer {
+  width: 100%;
 }
 
 .resultsChartContainer {
@@ -204,6 +227,7 @@ button:hover {
   border-radius: 5px;
   width: 100%;
   max-width: 900px;
+  margin-top: 1rem;
 }
 .calculate-results-button:hover {
   background-color: rgb(89, 89, 255);

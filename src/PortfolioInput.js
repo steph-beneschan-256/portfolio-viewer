@@ -136,89 +136,94 @@ export default function PortfolioInput({onPortfolioSubmit}) {
                 indicate the stock symbol (e.g. GOOG, AAPL, AMZN, TSLA, MSFT) as well as the portion of the investment allocated
                 to that stock.
             </div>
+            <div className="portfolio-input">
+                <label className="budget-input">
+                    Total Money Invested:
+                    <div>
+                        <span className="dollar-sign-label">$</span>
+                        <input type="number" value={investmentAmount}
+                        min="1" max="1000000000"
+                        onChange={(e)=>{setInvestmentAmount(e.target.value)}}>
+                        </input>
+                    </div>
+                </label>
 
-            <label className="budget-input">
-                Total Money Invested:
-                <div>
-                    <span className="dollar-sign-label">$</span>
-                    <input type="number" value={investmentAmount}
-                    min="1" max="1000000000"
-                    onChange={(e)=>{setInvestmentAmount(e.target.value)}}>
-                    </input>
-                </div>
-            </label>
+                <label>
+                    Portfolio Creation Date:
+                    <div>
+                        <input type="date" value={creationDate}
+                        min="2000-01-01" max="2023-05-25"
+                        onChange={(e)=>{setCreationDate(e.target.value)}}>
+                        </input>
+                    </div>
 
-            <label>
-                Portfolio Creation Date:
-                <div>
-                    <input type="date" value={creationDate}
-                    min="2000-01-01" max="2023-05-25"
-                    onChange={(e)=>{setCreationDate(e.target.value)}}>
-                    </input>
-                </div>
+                </label>
 
-            </label>
+                <div className="stock-widgets-container">
+                {
+                    stockWidgetIDs.map((widgetID, index) => {
+                        return (
+                            <div class="stock-widget-container">
+                                <div className="stockWidget">
+                                    <div className="remove-button-container">
+                                        <button className="remove-button" onClick={() => {removeStockWidget(widgetID)}} disabled={stockWidgetIDs.length <= 1}>
+                                            - Remove
+                                        </button>
+                                    </div>
 
-            <div className="stock-widgets-container">
-            {
-                stockWidgetIDs.map((widgetID, index) => {
-                    return (
-                        <div class="stock-widget-container">
-                            <div className="stockWidget">
-                                <div className="remove-button-container">
-                                    <button className="remove-button" onClick={() => {removeStockWidget(widgetID)}} disabled={stockWidgetIDs.length <= 1}>
-                                        - Remove
-                                    </button>
+                                    <label>
+                                        <span>Stock Symbol:</span>
+                                        <br/>
+                                        <input type="text"
+                                        maxLength={10}
+                                        value={inputStockSymbols[widgetID]}
+                                        onChange={(e)=>{updateInputStockSymbols(e.target.value, widgetID)}}>
+                                        </input>
+                                    </label>
+                                    <label>
+                                        <span>Percent of Budget to Allocate:</span>
+                                        <br/>
+                                        <input type="number"
+                                        step="0.01" min="0" max="100"
+                                        value={inputStockPortions[widgetID]}
+                                        onChange={(e)=>{updateInputStockPortions(e.target.value, widgetID)}}>
+                                        </input>  
+                                        <span className="percent-label">%</span>
+                                    </label>
                                 </div>
-
-                                <label>
-                                    <span>Stock Symbol:</span>
-                                    <br/>
-                                    <input type="text"
-                                    maxLength={10}
-                                    value={inputStockSymbols[widgetID]}
-                                    onChange={(e)=>{updateInputStockSymbols(e.target.value, widgetID)}}>
-                                    </input>
-                                </label>
-                                <label>
-                                    <span>Percent of Budget to Allocate:</span>
-                                    <br/>
-                                    <input type="number"
-                                    step="0.01" min="0" max="100"
-                                    value={inputStockPortions[widgetID]}
-                                    onChange={(e)=>{updateInputStockPortions(e.target.value, widgetID)}}>
-                                    </input>  
-                                    <span className="percent-label">%</span>
-                                </label>
                             </div>
-                        </div>
-                    )
-                })
-            }
-            </div>
-
-            <button className="add-button" onClick={addStockWidget} disabled={stockWidgetIDs.length >= MAX_STOCKS_ALLOWED}>+ Add Stock</button>
-
-            {/* <button onClick={dataSubmitted}>
-                Update Chart
-            </button> */}
-
-            <div>
-                {errMsg &&
-                <div class="errMsg">
-                    ⚠ {errMsg}
-                </div>
+                        )
+                    })
                 }
+                </div>
+
+                <button className="add-button" onClick={addStockWidget} disabled={stockWidgetIDs.length >= MAX_STOCKS_ALLOWED}>+ Add Stock</button>
+
+                {/* <button onClick={dataSubmitted}>
+                    Update Chart
+                </button> */}
+
+                <div>
+                    {errMsg &&
+                    <div class="errMsg">
+                        ⚠ {errMsg}
+                    </div>
+                    }
+                </div>
+
             </div>
 
-            <h4>Your Portfolio Allocation:</h4>
-            <div className="inputChartContainer">
-              <Chart
-                type="pie"
-                options={{"labels": chartStockSymbols}}
-                series={chartStockPortions}
-              />
+            <div className="allocation-chart">
+                <h4>Your Portfolio Allocation:</h4>
+                <div className="inputChartContainer">
+                <Chart
+                    type="pie"
+                    options={{"labels": chartStockSymbols}}
+                    series={chartStockPortions}
+                />
+                </div>
             </div>
+
 
             <button className="calculate-results-button" onClick={submitPortfolio} disabled={!inputIsValid()}>
                 Calculate Results

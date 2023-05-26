@@ -8,9 +8,16 @@ function App() {
 
   const [portfolio, setPortfolio] = useState(null);
 
+  // Call when Calculate Results button is clicked
   function calculatePortfolioResults(newPortfolio) {
-    if(portfolio !== newPortfolio)
+    if(portfolio !== newPortfolio) {
       setPortfolio(newPortfolio);
+      const resultsDiv = document.getElementById("results");
+      if(resultsDiv){
+        resultsDiv.scrollIntoView();
+      }
+    }
+
 
   }
 
@@ -21,8 +28,10 @@ function App() {
       </header>
       <body>
         <PortfolioInput onPortfolioSubmit={calculatePortfolioResults}/>
-        {portfolio &&
-        <ShowResults portfolio={portfolio} />}
+        <div id="results">
+          {portfolio &&
+          <ShowResults portfolio={portfolio} />}
+        </div>
       </body>
     </div>
   );
