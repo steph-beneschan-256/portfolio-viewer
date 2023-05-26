@@ -139,6 +139,12 @@ export default function ShowResults ({ portfolio=samplePortfolio }) {
     const reqResponse = await fetch(requestURL);
     if(reqResponse.status === 200) {
       const jsonData = await reqResponse.json();
+      if(symbols.length === 1) {
+        let toReturn = {};
+        toReturn[symbols[0]] = jsonData;
+        rawStockData.current = toReturn;
+        return toReturn;
+      }
       rawStockData.current = jsonData;
       console.log(jsonData);
       return jsonData;
