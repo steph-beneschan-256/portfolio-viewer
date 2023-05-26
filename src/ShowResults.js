@@ -80,7 +80,7 @@ export default function ShowResults ({ portfolio=samplePortfolio }) {
     yaxis: {
       labels: {
         formatter: function(value, index) {
-          return '$' + value.toFixed(2);
+          return value.toLocaleString("en-US", {style: "currency", currency: "USD"});
         }
       }
     },
@@ -110,16 +110,16 @@ export default function ShowResults ({ portfolio=samplePortfolio }) {
   */
   async function getRawStockData() {
 
-    // if(rawStockData.current)
-    //   return rawStockData.current;
+    if(rawStockData.current)
+      return rawStockData.current;
 
-    let useSampleData = true;
-    useSampleData = false; // comment this line out for quick toggling
+    // let useSampleData = true;
+    // useSampleData = false;
 
-    if(useSampleData) {
-      rawStockData.current = sampleData;
-      return sampleData;
-    }
+    // if(useSampleData) {
+    //   rawStockData.current = sampleData;
+    //   return sampleData;
+    // }
 
     const symbols = portfolio.assets.map((a) => a.symbol);
 
@@ -157,20 +157,30 @@ export default function ShowResults ({ portfolio=samplePortfolio }) {
     setIsLoading(true);
 
     const stockData = await getRawStockData();
-    if(stockData === null)
-      return; //TODO: error handling
+    if(stockData === null) {
+        setErrMsg("Sorry, but we're having trouble accessing stock data. Please try again in a few moments.")
+        setIsLoading(false);
+        return;
+    }
 
     const stockSymbols = portfolio.assets.map((asset) => asset.symbol);
+    console.log(stockSymbols);
 
     /*
     Ensure that data for all stocks in the portfolio was successfully retrieved
     */
+    let e = false;
     stockSymbols.forEach((symbol) => {
       if((!stockData[symbol]) || (stockData[symbol].status !== "ok")) {
-        setErrMsg("Sorry, but data could not be retrieved for every stock in your portfolio.");
+        setErrMsg("Sorry, but data could not be retrieved for every stock in your portfolio. Please make sure that you entered valid stock symbols.");
+        e = true;
         return;
       }
     })
+    if(e){
+        setIsLoading(false);
+        return;
+    }
 
     /*
     Get the number of shares purchased for each stock in the portfolio
@@ -287,18 +297,19 @@ export default function ShowResults ({ portfolio=samplePortfolio }) {
   return (
     <div className="showResults">
         {
-        isLoading ? (
+        isLoading && (
           <div>
             loading...
           </div>
-        )
-        :
+        )}
+
         <div>
-            {/* <button onClick={updateChart}>
-              Calculate Results
-            </button> */}
+            {errMsg &&
+            <div class="errMsg">
+                ⚠ {errMsg}
+            </div>
+            }
         </div>
-        }
 
         <>  
           {(chartLoaded && chartOptions && chartSeries) && 
@@ -315,12 +326,12 @@ export default function ShowResults ({ portfolio=samplePortfolio }) {
               Your portfolio's value today:
             </h2>
             <h3>
-              Total: {'$' + finalTotalValue.toFixed(2)}
+              Total: {finalTotalValue.toLocaleString("en-US", {style: "currency", currency: "USD"})}
             </h3>
             {
               finalStockValues.map((data) => (
                 <h4>
-                  {data.symbol}: {`$${data.value.toFixed(2)}`}
+                  {data.symbol}: {data.value.toLocaleString("en-US", {style: "currency", currency: "USD"})}
                 </h4>
               ))
             }

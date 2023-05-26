@@ -3,26 +3,213 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: transparent;
+  font-size: calc(10px + 1rem);
+  color: #222222;
 }
 
+.instructions {
+  width: calc(92%-2rem);
+  margin-left: 4%;
+  margin-right: 4%;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: rgb(203, 224, 231);
+  border-radius: 10px;
+}
+
+.budget-input {
+  width: 100%;
+  text-align: center;
+}
+
+.budget-input div {
+  width: 96%;
+  margin: 2%;
+
+}
+.dollar-sign-label {
+  display: inline-block;
+  text-align: right;
+  width: 1rem;
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+.budget-input div input {
+  width: calc(100% - 5rem);
+
+  font-size: 14px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1%;
+  padding-bottom: 1%;
+
+  border: 1px solid #00000088;
+  border-radius: 5vw;
+}
+
+.stock-widgets-container {
+  border-top: 1px solid #00000022; 
+  margin-top: 1rem;
+}
+
+.stock-widget-container {
+  width: 100%;
+  border-bottom: 1px solid #00000022; 
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
+}
+
+.stockWidget {
+  display: flex;
+  text-align: center;
+  align-items: end;
+  justify-content: center;
+  width: 95%;
+  max-width: 800px;
+  margin: auto;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+}
+
+.stockWidget div {
+  display:inline-block;
+}
+
+.remove-button-container {
+  width: 30%;
+  text-align: left;
+}
+
+.remove-button {
+  border: 1px solid red;
+  background-color: transparent;
+  color: red;
+  border-radius: 5px;
+  padding: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: bold;
+  transition: color 0.25s, background-color 0.25s;
+}
+
+.remove-button:hover {
+  color: white;
+  background-color: red;
+}
+
+.add-button {
+  border: 1px solid green;
+  background-color: transparent;
+  color: green;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.add-button:hover {
+  color: white;
+  background-color: green;
+}
+
+.remove-button:disabled, .add-button:disabled {
+  color: gray;
+  background-color: transparent;
+  border: 1px solid gray;
+}
+
+button {
+  padding: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  transition: color 0.25s, background-color 0.25s;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.stockWidget label {
+  display: inline-block;
+  width: 30%;
+  text-align: left;
+}
+
+.stockWidget label + label {
+  display: inline-block;
+
+  text-align: left;
+}
+
+.stockWidget span {
+  font-size: 12px;
+}
+
+.percent-label {
+  width: 1rem;
+  font-size: 1rem;
+}
+
+.stockWidget label input {
+  font-size: 0.85rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border: 1px solid #00000088;
+  border-radius: 5vw 0 0 5vw;
+  width: calc(100% - 2rem);
+}
+
+.stockWidget label + label input {
+  border-radius: 0 5vw 5vw 0;
+  width: calc(100% - 4rem);
+  margin-right: 1rem;
+}
+
+
+
+/* .stockWidget label span {
+  width: 100%;
+} */
 
 
 .showResults {
-  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-  Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Roboto, sans-serif;
+  width: 100%;
 }
 
 .inputChartContainer {
-  width: calc(min(50vw, 50vh));
-  margin-left: calc(min(25vw, 25vh));
-  margin-right: calc(min(25vw, 25vh));
+  width: calc(max(min(50vw, 50vh), min(80%, 400px)));
+  min-width: calc();
+  margin-left: calc((100vw - (max(min(50vw, 50vh), min(80%, 400px))))/2);
+  margin-right: calc((100vw - (max(min(50vw, 50vh), min(80%, 400px))))/2);
 }
 
 .resultsChartContainer {
   width: calc(min(90vw, 90vh));
-  margin-left: calc(min(5vw, 5vh));
-  margin-right: calc(min(5vw, 5vh));
+  margin-left: calc((100% - min(90vw, 90vh))/2);
+  margin-right: calc((100% - min(90vw, 90vh))/2);
+}
+
+.errMsg {
+  color: red;
+}
+
+.calculate-results-button {
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 900px;
+}
+.calculate-results-button:hover {
+  background-color: rgb(89, 89, 255);
+}
+.calculate-results-button:disabled {
+  background-color: lightgray;
+  color: gray;
+  cursor: not-allowed;
 }
